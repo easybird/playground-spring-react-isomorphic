@@ -20,8 +20,8 @@ public class IsomorphicApplication {
     CommandLineRunner init(CommentRepository cr) {
         return args -> {
 
-            cr.save(new Comment("Brian Clozel", "This is a test!"));
-            cr.save(new Comment("Stéphane Nicoll", "This is a test too!"));
+            cr.save(new Comment("Easybird", "Saved in CommentRepo!"));
+            cr.save(new Comment("Vegas on Tour", "Forever!"));
 
             System.out.println("---------------------------------");
             cr.findAll().forEach(System.out::println);
