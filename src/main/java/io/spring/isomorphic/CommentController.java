@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -61,16 +60,22 @@ public class CommentController {
     }
 
     Comment create(Comment comment) {
-        Comment newComment = this.commentRepository.save(comment);
-        synchronized (this.sseEmitters) {
-            for (SseEmitter sseEmitter : this.sseEmitters) {
-                // Servlet containers don't always detect ghost connection, so we must catch exceptions ...
-                try {
-                    sseEmitter.send(newComment, MediaType.APPLICATION_JSON);
-                } catch (Exception e) {
+        for (int i = 0; i < 5; i++) {
+            Comment updatedComment = new Comment(comment.getAuthor(), comment.getContent() + i);
+
+            Comment newComment = this.commentRepository.save(updatedComment);
+
+            synchronized (this.sseEmitters) {
+                for (SseEmitter sseEmitter : this.sseEmitters) {
+                    // Servlet containers don't always detect ghost connection, so we must catch exceptions ...
+                    try {
+                        sseEmitter.send(newComment, MediaType.APPLICATION_JSON);
+                    } catch (Exception e) {
+                    }
                 }
             }
         }
+
         return comment;
     }
 
