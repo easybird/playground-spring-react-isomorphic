@@ -1,6 +1,6 @@
 import React from 'react';
 
-class CommentForm extends React.Component {
+class CommentFormApp extends React.Component {
 
     constructor(props) {
         super(props);
@@ -40,8 +40,8 @@ class CommentForm extends React.Component {
     }
 }
 
-CommentForm.propTypes = {
+CommentFormApp.propTypes = {
     onCommentSubmit: React.PropTypes.func
 };
 
-module.exports = CommentForm;
+module.exports = CommentFormApp;

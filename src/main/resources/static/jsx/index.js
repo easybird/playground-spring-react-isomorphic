@@ -1,35 +1,40 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactDOMServer from 'react-dom/server';
-import CommentForm from './comment-form';
-import CommentList from './comment-list';
-import Cropper from './cropper';
+import CommentFormApp from './CommentFormApp';
+import CommentListApp from './CommentListApp';
+import CropperApp from './CropperApp';
 
+// Functions for Browser side rendering!
 if (typeof window !== 'undefined') {
     ReactDOM.render(
-        <CommentForm onCommentSubmit={ function (comment) {
-            $.post('/', comment, null, 'json');
-        } } />,
+        <CommentFormApp onCommentSubmit={ (comment) => $.post('/', comment, null, 'json')} />,
         document.getElementById("navbar")
     );
 
-    ReactDOM.render(<Cropper test="anotherTest" />, document.getElementById("cropper"));
-
     $.getJSON('/', function (data) {
-        ReactDOM.render(<CommentList comments={ data } />, document.getElementById("comments"));
+        ReactDOM.render(
+            <CommentListApp comments={ data } />,
+            document.getElementById("comments"));
     });
+
+    ReactDOM.render(
+        <CropperApp test="browserSide!" />,
+        document.getElementById("cropper"));
+
 }
 
+// Functions for Server side rendering!
 function renderCommentList(comments) {
-    return ReactDOMServer.renderToString(React.createElement(CommentList, { comments: comments }));
+    return ReactDOMServer.renderToString(<CommentListApp comments={comments} />);
 }
 
 function renderCommentForm() {
-    return ReactDOMServer.renderToString(React.createElement(CommentForm));
+    return ReactDOMServer.renderToString(<CommentFormApp />);
 }
 
 function renderCropper() {
-    return ReactDOMServer.renderToString(React.createElement(Cropper, { test: "anotherTest" }));
+    return ReactDOMServer.renderToString(<CropperApp test="serverSide!" />);
 }
 
 module.exports = {

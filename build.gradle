@@ -45,4 +45,10 @@ npm_run {
   args = ['webpack']
 }
 
+node {
+  version = '6.3.1'
+  download = true
+  workDir = file("${project.projectDir}/.gradle/nodejs")
+}
+
 processResources.dependsOn('npm_run')

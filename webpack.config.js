@@ -23,5 +23,17 @@ module.exports = {
                 include: SRC
             }
         ]
+    },
+    devServer: {
+        port: 9090,
+        proxy: {
+            '/**': {
+                target: 'http://localhost:8080',
+                secure: false,
+                // node-http-proxy option - don't add /localhost:8080/ to proxied request paths
+                prependPath: false
+            },
+        },
+        publicPath: 'http://localhost:9090/output/'
     }
 };

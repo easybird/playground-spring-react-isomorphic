@@ -1,6 +1,6 @@
 const React = require('react');
 
-class Cropper extends React.Component {
+class CropperApp extends React.Component {
 
     constructor(props) {
         super(props);
@@ -14,8 +14,8 @@ class Cropper extends React.Component {
     }
 }
 
-Cropper.propTypes = {
+CropperApp.propTypes = {
     test: React.PropTypes.string.isRequired
 };
 
-module.exports = Cropper;
+module.exports = CropperApp;
