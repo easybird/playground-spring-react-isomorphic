@@ -30,7 +30,7 @@ public class IsomorphicApplication {
     }
 
     @Bean
-    public ViewResolver reactViewResolver() {
+    public ViewResolver viewResolver() {
         ScriptTemplateViewResolver viewResolver = new ScriptTemplateViewResolver();
         viewResolver.setPrefix("static/templates/");
         viewResolver.setSuffix(".ejs");
@@ -40,7 +40,7 @@ public class IsomorphicApplication {
     }
 
     @Bean
-    public ScriptTemplateConfigurer reactConfigurer() {
+    public ScriptTemplateConfigurer scriptTemplateConfigurer() {
         ScriptTemplateConfigurer configurer = new ScriptTemplateConfigurer();
         configurer.setEngineName("nashorn");
         configurer.setScripts(
