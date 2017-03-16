@@ -60,8 +60,8 @@ public class CommentController {
     }
 
     Comment create(Comment comment) {
-        for (int i = 0; i < 5; i++) {
-            Comment updatedComment = new Comment(comment.getAuthor(), comment.getContent() + i);
+        for (int i = 1; i < 3; i++) {
+            Comment updatedComment = new Comment(comment.getAuthor(), comment.getContent() + " - enriched by the backend nr." + i);
 
             Comment newComment = this.commentRepository.save(updatedComment);
 
